@@ -26,7 +26,7 @@ public:
 
     void findConections() const; //procura as conexões no grafo de armazéns
     void linkDepots(Depot *depot); //Linka dois armazens, criando uma pilha de pacote de A para B (não é bidirecional)
-    
+    bool operator==(const Depot& other) const;
 
     void addPackage(Depot* destination, const Package& package); // Adiciona um pacote ao armazém
     Package removePackage(Depot* destination); // Remove o primeiro pacote do armazém

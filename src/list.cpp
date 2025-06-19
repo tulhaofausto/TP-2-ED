@@ -51,6 +51,34 @@ T& List<T>::front() const {
     return head->data;
 }
 
+template<typename T>
+bool List<T>::search(const T& value) const {
+    Node* current = this->first;
+    while (current != nullptr) {
+        if (current->data == value) {
+            return 1;
+        }
+        current = current->next;
+    }
+    return 0;
+}
+
+template<typename T>
+T& List<T>::get(int i) const{
+
+    if (i > listSize)
+        throw std::out_of_range("indice nao existe na lista");
+
+    int j = 0;
+    Node* aux = this->first;
+
+    for(j = 0; j < i; j++){
+        aux = aux->next;
+    }
+
+    return aux->data;
+}
+
 /// @brief Retorna 1 caso a lista esteja vazia.
 template<typename T>
 bool List<T>::isEmpty() const {
@@ -77,4 +105,5 @@ List<T>::~List() {
     clear();
 }
 
-template class List<Depot>; // Instanciação explícita para int
+template class List<Depot>; 
+template class List<Depot*>;

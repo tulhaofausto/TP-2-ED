@@ -1,5 +1,5 @@
-#ifndef GRAPH_HPP
-#define GRAPH_HPP
+#ifndef LIST_HPP
+#define LIST_HPP
 
 template<typename T>
 class List{
@@ -19,7 +19,9 @@ public:
     void pushFront(const T& value);
     void pushBack(const T& value);
     void removeFront();
+    bool search(const T& value) const;
     T& front() const;
+    T& get(int i) const;
     bool isEmpty() const;
     int size() const;
     void clear();
