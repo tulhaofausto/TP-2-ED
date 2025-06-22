@@ -20,10 +20,11 @@ public:
     void pushBack(const T& value);
     void removeFront();
     bool search(const T& value) const;
+    T popHead();
     T& front() const;
     T& get(int i) const;
     bool isEmpty() const;
-    int size() const;
+    int getSize() const;
     void clear();
 
     ~List();

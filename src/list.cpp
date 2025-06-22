@@ -43,6 +43,18 @@ void List<T>::removeFront() {
     listSize--;
 }
 
+template<typename T>
+T List<T>::popHead() {
+    if (isEmpty())
+        throw std::underflow_error("Lista vazia.");
+    Node* temp = head;
+    T value = temp->data;
+    head = head->next;
+    delete temp;
+    listSize--;
+    return value;
+}
+
 /// @brief Retorna o primeiro elemento da lista
 template<typename T>
 T& List<T>::front() const {
@@ -87,7 +99,7 @@ bool List<T>::isEmpty() const {
 
 /// @brief Retorna o tamanho da lista
 template<typename T>
-int List<T>::size() const {
+int List<T>::getSize() const {
     return listSize;
 }
 
@@ -107,3 +119,5 @@ List<T>::~List() {
 
 template class List<Depot>; 
 template class List<Depot*>;
+template class List<bool>;
+template class List<int>;

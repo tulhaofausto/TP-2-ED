@@ -9,15 +9,15 @@
 class Graph {
 private:
     int numVertices; // Numero de vértices no grafo
-    List<Depot>* adjacencyList; // Array de listas de adjacência
+    List<Depot*>* adjacencyList; // Array de listas de adjacência
 
 public:
     Graph(int vertices);
     ~Graph();
 
     void addEdge(Depot* source, Depot* destination);
-    List<Depot> getEdges(Depot source);
-    void breadthFirstSearch(Depot *startVertex, Depot *finishVertex);
+    List<Depot*> getEdges(Depot* source);
+    List<Depot*> findShortestPath(Depot* startVertex, Depot* finishVertex);
 };
 
 #endif

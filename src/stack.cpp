@@ -161,3 +161,5 @@ Queue<T>::~Queue(){
 template class Queue<Depot>;
 template class Queue<Depot*>;
 template class Queue<Package>;
+template class Queue<int>;
+template class Queue<bool>;
