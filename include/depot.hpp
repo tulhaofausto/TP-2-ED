@@ -10,8 +10,9 @@
 struct depotStack{
     Depot* d_depot;
     Stack<Package*> d_stack; // Tamanho máximo do armazém definido como 100
+    int transport_time;
 
-    depotStack(Depot *depot, int capacity = MAX_STORAGE_CAPACITY) 
+    depotStack(Depot *depot, int transportTime, int capacity = MAX_STORAGE_CAPACITY) 
         : d_depot(depot), d_stack(capacity) {} // Inicializa o depotStack com um Depot e uma pilha de pacotes
 };
 

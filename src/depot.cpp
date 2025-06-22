@@ -1,4 +1,5 @@
 #include "depot.hpp"
+#define STANDART_TIME 20
 
 Depot::Depot(int id, const std::string& name) : id(id), name(name) {};
 
@@ -17,9 +18,9 @@ void Depot::findConnections(Graph *depotNet){
     int i;
     for(i = 0; i < depotConnections.getSize(); i++){
         Depot* destDepot = depotConnections.get(i);
-        this->destinations[i] = new depotStack(destDepot);
+        this->destinations[i] = new depotStack(destDepot, STANDART_TIME);
     }
-    this->destinations[i+1] = new depotStack(nullptr); // Aloca à última posição, um stack que será utilizado para movimentação
+    this->destinations[i+1] = new depotStack(nullptr, 1); // Aloca à última posição, um stack que será utilizado para movimentação
     d_Num = i;
 };
 
