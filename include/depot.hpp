@@ -2,7 +2,7 @@
 #define DEPOT_HPP
 
 #include "package.hpp"
-#include "stack.hpp"
+#include "basicTADS.hpp"
 #include <string>
 
 #define MAX_STORAGE_CAPACITY 100 // Tamanho máximo do armazém
@@ -33,6 +33,7 @@ public:
     void addPackage(Depot* destination, Package *package); // Adiciona um pacote ao armazém
     Package* removePackage(Depot* destination); // Remove o primeiro pacote do armazém
 
+    int getTransportTime(Depot* destination);
     int getId() const;
 
     ~Depot();

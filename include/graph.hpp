@@ -1,7 +1,7 @@
 #ifndef GRAPH_HPP
 #define GRAPH_HPP
-#include "list.hpp"
-#include "stack.hpp"
+
+#include "../include/basicTADS.hpp"
 #include "depot.hpp"
 
 // Decidi implementar o grafo sem ser abstrato, focado no stack de depots pois será melhor para trabalhar com as chaves 

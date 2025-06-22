@@ -1,7 +1,6 @@
-#ifndef STACK_HPP
-#define STACK_HPP
+#ifndef TADS_HPP
+#define TADS_HPP
 
-#include "package.hpp"
 #include <stdexcept>
 
 template <typename T>
@@ -47,6 +46,36 @@ public:
 
     void clear();
     ~Queue();
+
+};
+
+template<typename T>
+class List{
+private:
+    struct Node {
+        T data;
+        Node* next;
+        Node(const T& value) : data(value), next(nullptr) {}
+    };
+
+    Node* head;
+    int listSize;
+
+public:
+    List();
+    
+    void pushFront(const T& value);
+    void pushBack(const T& value);
+    void removeFront();
+    bool search(const T& value) const;
+    T popHead();
+    T& front() const;
+    T& get(int i) const;
+    bool isEmpty() const;
+    int getSize() const;
+    void clear();
+
+    ~List();
 
 };
 

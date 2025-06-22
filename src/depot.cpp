@@ -53,6 +53,10 @@ Package* Depot::removePackage(Depot *destination){
     return nullptr; // Retorna nullptr se não encontrou ou se a pilha está vazia
 };
 
+int Depot::getTransportTime(Depot* destination){
+    return findStack(destination)->transport_time;
+};
+
 int Depot::getId() const{
     return this->id;
 }
