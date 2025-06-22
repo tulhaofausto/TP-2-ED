@@ -9,14 +9,13 @@ private:
     T* dataArray;
     int size;
     int capacity;
-    
+    void resize(int newCapacity);
 
 public:
-// O tamanho máximo da pilha sempre será declarado aqui, uma vez que isso representa o tamanho máximo do armazem.
-// Por questão de seguir a abstratabilidade do TAD, decidi implementar resize também, mas não será utilizado por padrão no código.
+
     Stack(int initialCapacity); 
-    
-    void resize(int newCapacity);
+    Stack();
+
     void push(const T& data); // Adiciona um novo pacote no topo da pilha
     T pop(); // Remove o último colocado
     T getHead() const; // Retorna o pacote no topo da pilha

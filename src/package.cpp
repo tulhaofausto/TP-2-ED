@@ -55,3 +55,7 @@ int Package::getTransitTime() const{
 int Package::getId() const {
     return packageId;
 }
+
+Package::~Package(){
+
+}

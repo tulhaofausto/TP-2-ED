@@ -1,9 +1,9 @@
 #include "depot.hpp"
-#define STANDART_TIME 20
+#include "package.hpp"
 
-Depot::Depot(int id, const std::string& name) : id(id), name(name) {};
+Depot::Depot(int id, int flowCapacity) : id(id), enteringCapacity(flowCapacity), leavingCapacity(flowCapacity) {};
 
-depotStack* Depot::findStack(Depot *source){
+Depot::depotStack* Depot::findStack(Depot *source){
     for (int i = 0; i < d_Num; i++){
         if (destinations[i]->d_depot == source) {
             return destinations[i];
@@ -12,13 +12,14 @@ depotStack* Depot::findStack(Depot *source){
     throw std::out_of_range("Nao existe na Stack");
 }
 
-void Depot::findConnections(Graph *depotNet){
-    List<Depot*> depotConnections = depotNet->getEdges(this);
+void Depot::findConnections(List<Depot*> depotConnections){
     this->destinations = new depotStack*[depotConnections.getSize()+1];
     int i;
-    for(i = 0; i < depotConnections.getSize(); i++){
+    for(i = 1; i < depotConnections.getSize(); i++){
         Depot* destDepot = depotConnections.get(i);
-        this->destinations[i] = new depotStack(destDepot, STANDART_TIME);
+        this->destinations[i] = new depotStack(destDepot, 
+            (this->leavingCapacity < destDepot->getEnteringCapacity() ? // Seta a quantidade de pacotes de transporte de acordo com a capacidade de entrada/saída do destino/origem
+            this->leavingCapacity : destDepot->getEnteringCapacity()));
     }
     this->destinations[i+1] = new depotStack(nullptr, 1); // Aloca à última posição, um stack que será utilizado para movimentação
     d_Num = i;
@@ -53,6 +54,14 @@ Package* Depot::removePackage(Depot *destination){
     return nullptr; // Retorna nullptr se não encontrou ou se a pilha está vazia
 };
 
+int Depot::getLeavingCapacity() {
+    return leavingCapacity;
+}
+
+int Depot::getEnteringCapacity() {
+    return enteringCapacity;
+}
+
 int Depot::getTransportTime(Depot* destination){
     return findStack(destination)->transport_time;
 };
@@ -61,3 +70,11 @@ int Depot::getId() const{
     return this->id;
 }
 
+Depot::~Depot() {
+    // Libera cada depotStack alocado
+    for (int i = 0; i < d_Num; i++) {
+        delete destinations[i];
+    }
+    // Libera o array de ponteiros
+    delete[] destinations;
+}

@@ -15,9 +15,13 @@ public:
     Graph(int vertices);
     ~Graph();
 
+    void addVertex(Depot* source);
     void addEdge(Depot* source, Depot* destination);
-    List<Depot*> getEdges(Depot* source);
+    void addEdge(int index1, int index2);
+    List<Depot*> getEdgeAdjList(Depot* source);
+    void setEdgeConnections(int index);
     List<Depot*> findShortestPath(Depot* startVertex, Depot* finishVertex);
+
 };
 
 #endif

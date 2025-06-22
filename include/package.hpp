@@ -23,6 +23,7 @@ private:
 
 public:
     Package(int id, Depot* originDepot, Depot* destinationDepot);
+    Package():Package(0, nullptr, nullptr){};
 
     void setPath(Graph& depotNet);
     void advanceInPath();

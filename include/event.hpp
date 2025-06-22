@@ -7,7 +7,7 @@
 
 class Event{
 private:
-    int priorityKey;
+    long long priorityKey;
     int eventType;
     int eventTime;
 
@@ -17,6 +17,7 @@ public:
     /// @param _eventTime tempo que o evento deverá acontecer
     /// @param pack 
     Event(int _eventType, int _eventTime, Package* pack);
+    Event():Event(-1, -1, nullptr){};
 
     /// @brief Procura o Package e executa a seguinte sequencia: tira da pilha inicial e o coloca em estado de "Em transporte"
     /// @param pack 
@@ -33,6 +34,14 @@ public:
     /// @details "evento de pacote"
     void ChangePile(Package* pack);
 
+    /// Comparadores de maior que e menor que
+    bool operator<(const Event& other) const {
+        return this->priorityKey < other.priorityKey;
+    }
+    bool operator>(const Event& other) const {
+        return this->priorityKey > other.priorityKey;
+    }
+    /// ---------------------------------------------
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "minHeap.hpp"
+#include "event.hpp"
 
 template <typename T>
 MinHeap<T>::MinHeap(size_t initialCapacity) : size(0), capacity(initialCapacity) {
@@ -144,3 +145,6 @@ void MinHeap<T>::clear() {
     size = 0;
     heapArray = new T[capacity]; 
 }
+
+template class MinHeap<Event*>;
+template class MinHeap<Event>;

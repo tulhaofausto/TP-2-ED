@@ -7,6 +7,11 @@ Stack<T>::Stack(int initialCapacity) : size(0), capacity(initialCapacity) {
     dataArray = new T[capacity];
 }
 
+template <typename T>
+Stack<T>::Stack() : size(0), capacity(10) {
+    dataArray = new T[capacity];
+}
+
 /// @brief Ajusta a capacidade da pilha (deve ser utilizado para aumentar).
 /// @param newCapacity Capacidade nova da pilha.
 template <typename T>
@@ -26,15 +31,16 @@ void Stack<T>::resize(int newCapacity) {
 template <typename T>
 void Stack<T>::push(const T& Data) {
 
-/*  //Resize caso seja necessário de acordo com o VPL ou a implementação do projeto.
+  //Resize caso seja necessário de acordo com o VPL ou a implementação do projeto.
     if (size == capacity) {
         resize(capacity * 2); 
     }
-*/
+
+/*  //Implementação caso na stack não tenha tamanho variado
     if (size >= capacity) {
         throw std::overflow_error("O armazem esta cheio. Nao e possivel adicionar mais pacotes.");
     }  
-    
+*/    
     dataArray[size++] = Data; // Adiciona o pacote no topo da pilha e aumenta o tamanho
 
 }
@@ -77,6 +83,7 @@ Stack<T>::~Stack() {
 
 template class Stack<Package>; // Instancia a classe Stack para o tipo Package
 template class Stack<Depot>; // Instancia a classe Stack para o tipo depotStack
+template class Stack<Package*>;
 
 /// @brief Fila implementada como fila circular
 /// @tparam T 
@@ -139,7 +146,7 @@ template <typename T>
 T Queue<T>::getFirstInLine() const{
     
     if(size == 0){
-        throw std::underflow_error("Fila vazia. Nada a retornar")
+        throw std::underflow_error("Fila vazia. Nada a retornar");
     }
 
     return dataArray[first];
@@ -229,7 +236,7 @@ T& List<T>::front() const {
 
 template<typename T>
 bool List<T>::search(const T& value) const {
-    Node* current = this->first;
+    Node* current = this->head;
     while (current != nullptr) {
         if (current->data == value) {
             return 1;
@@ -246,7 +253,7 @@ T& List<T>::get(int i) const{
         throw std::out_of_range("indice nao existe na lista");
 
     int j = 0;
-    Node* aux = this->first;
+    Node* aux = this->head;
 
     for(j = 0; j < i; j++){
         aux = aux->next;
