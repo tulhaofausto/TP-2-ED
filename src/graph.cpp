@@ -44,6 +44,10 @@ List<Depot*> Graph::getEdgeAdjList(Depot* source) {
     throw std::invalid_argument("O deposito nao pertence a rede de armazens");
 };
 
+List<Depot*>* Graph::getAdjacencyList() {
+    return adjacencyList;
+}
+
 void Graph::setEdgeConnections(int index){
     this->adjacencyList[index].front()->findConnections(this->adjacencyList[index]);
 }

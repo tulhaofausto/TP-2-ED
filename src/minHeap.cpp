@@ -121,6 +121,16 @@ T MinHeap<T>::pop() {
 }
 
 template <typename T>
+void MinHeap<T>::printInOrder() {
+    // Cria uma cópia do heap para não alterar o original
+    MinHeap<T> tempHeap(*this);
+    while (!tempHeap.isEmpty()) {
+        std::cout << tempHeap.pop() << " ";
+    }
+    std::cout << std::endl;
+}
+
+template <typename T>
 const T& MinHeap<T>::top() const {
     if (isEmpty()) {
         throw std::out_of_range("Heap is empty. Cannot get top from an empty heap.");

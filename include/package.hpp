@@ -18,7 +18,9 @@ private:
     
     int storedTime;
     int transitTime;
+    int lastTimeChange;
 
+    bool is_posted;
     bool is_inTransit;
 
 public:
@@ -27,14 +29,17 @@ public:
 
     void setPath(Graph& depotNet);
     void advanceInPath();
+    Depot* getOrigin();
     Depot* getCurrent();
     Depot* getNext();
+    Depot* getDestination();
     void changeState(); //Muda is_inTransit para 1 caso esteja em 0 e vice versa
     void increaseTransitTime(int time);
     void increaseStoredTime(int time);
     int getTransitTime() const;
     int getStoredTime() const;
     int getId() const;
+    bool isPosted();
     
     ~Package();
 

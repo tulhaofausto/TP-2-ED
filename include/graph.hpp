@@ -19,6 +19,8 @@ public:
     void addEdge(Depot* source, Depot* destination);
     void addEdge(int index1, int index2);
     List<Depot*> getEdgeAdjList(Depot* source);
+    List<Depot*>* getAdjacencyList();
+
     void setEdgeConnections(int index);
     List<Depot*> findShortestPath(Depot* startVertex, Depot* finishVertex);
 

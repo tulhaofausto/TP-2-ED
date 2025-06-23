@@ -20,6 +20,8 @@ public:
     T pop(); // Remove o último colocado
     T getHead() const; // Retorna o pacote no topo da pilha
 
+    int getSize();
+
     void clear(); // Limpa a pilha, removendo todos os pacotes
     ~Stack();
 };

@@ -22,6 +22,10 @@ public:
     /// @param time 
     void increaseTime(int time);
 
+    void printEventQueue(){
+        eventQueue.printInOrder();
+    };
+
 };
 
 #endif

@@ -68,6 +68,11 @@ T Stack<T>::getHead() const {
     return dataArray[size - 1]; // Retorna o pacote do topo sem removê-lo
 }
 
+template <typename T>
+int Stack<T>::getSize(){
+    return size;
+}
+
 /// @brief Muda o size para 0, efetivamente limpando a pilha.
 template <typename T>
 void Stack<T>::clear() {
@@ -160,6 +165,10 @@ int Queue<T>::getSize(){
 template <typename T>
 void Queue<T>::clear(){
     delete[] dataArray;
+    dataArray = new T[capacity]; 
+    first = 0;
+    last = 0;
+    size = 0;
 }
 
 template <typename T>

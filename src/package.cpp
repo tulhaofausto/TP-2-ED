@@ -3,7 +3,8 @@
 Package::Package(int id, Depot* originDepot, Depot* destinationDepot): packageId(id), origin(originDepot), destination(destinationDepot){
     current = originDepot;   
     pathIndex = 0;
-    is_inTransit = 0;                    
+    is_inTransit = 1;
+    is_posted = 0;                    
 };
 
 void Package::setPath(Graph& depotNet){
@@ -11,12 +12,17 @@ void Package::setPath(Graph& depotNet){
 }
 
 void Package::advanceInPath(){
+    is_posted = 1;
     if(this->path.get(pathIndex + 1) == nullptr){
         throw std::out_of_range("Ja esta no fim do caminho");
     }
     current = this->path.get(pathIndex);
     pathIndex++;
     
+}
+
+Depot* Package::getOrigin() {
+    return origin;
 }
 
 Depot* Package::getCurrent(){
@@ -32,16 +38,22 @@ Depot* Package::getNext() {
     return nullptr; // Não há próximo
 }
 
+Depot* Package::getDestination(){
+    return destination;
+}
+
 void Package::changeState() {
     is_inTransit = !is_inTransit;
 }
 
 void Package::increaseStoredTime(int time){
-    storedTime += time;
+    storedTime = time - lastTimeChange;
+    lastTimeChange = time;
 }
 
 void Package::increaseTransitTime(int time){
-    transitTime += time;
+    transitTime =  time - lastTimeChange;
+    lastTimeChange = time;
 }
 
 int Package::getStoredTime() const{
@@ -54,6 +66,10 @@ int Package::getTransitTime() const{
 
 int Package::getId() const {
     return packageId;
+}
+
+bool Package::isPosted(){
+    return is_posted;
 }
 
 Package::~Package(){

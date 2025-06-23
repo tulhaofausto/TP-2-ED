@@ -33,6 +33,7 @@ public:
     T pop();
     const T& top() const;
 
+    void printInOrder();
     bool isEmpty() const;
     size_t getSize() const;
     void clear();
