@@ -42,6 +42,7 @@ public:
     int getTransportTime(Depot* destination);
     int getId() const;
     int getD_num() const;
+    Package* getStackHead(Depot* dep);
 
     ~Depot();
 

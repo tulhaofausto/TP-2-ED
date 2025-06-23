@@ -104,6 +104,10 @@ int Depot::getD_num() const{
     return this->d_Num;
 }
 
+Package* Depot::getStackHead(Depot* dep){
+    return findStack(dep)->d_stack.getHead();
+}
+
 Depot::~Depot() {
 
     for (int i = 0; i < d_Num+2; i++) {

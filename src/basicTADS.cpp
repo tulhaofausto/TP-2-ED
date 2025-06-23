@@ -297,6 +297,8 @@ List<T>::~List() {
     clear();
 }
 
+template class List<Package>;
+template class List<Package*>;
 template class List<Depot>; 
 template class List<Depot*>;
 template class List<bool>;

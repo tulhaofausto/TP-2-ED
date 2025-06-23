@@ -1,8 +1,9 @@
 #ifndef SCHEDULER_HPP
 #define SCHEDULER_HPP
 
-#include "event.hpp"
 #include "minHeap.hpp"
+
+class Event;
 
 class Scheduler{
 private:
@@ -14,6 +15,9 @@ public:
     /// @brief Enfilera evento
     /// @param tbqEvent tbq = to be queued = a ser enfileirado
     void queueEvent(Event* tbqEvent); 
+
+    /// @brief Reenfilera evento em novo tempo
+    void requeueEvent(Event* tbqEvent, int time);
 
     /// @brief Desinfilera o próximo evento da fila (o primeiro minHeap)
     Event* dequeueNextEvent();
@@ -27,5 +31,5 @@ public:
     };
 
 };
-
+std::ostream& operator<<(std::ostream& output, const Event& e);
 #endif

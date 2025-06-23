@@ -1,12 +1,16 @@
 #include "graph.hpp"
+#include <iostream>
 
-Graph::Graph(int vertices):numVertices(vertices){}
+Graph::Graph(int vertices):numVertices(vertices){
+    adjacencyList = new List<Depot*>[numVertices];
+}
 
 void Graph::addVertex(Depot* source) {
     // Procura uma lista vazia (ou posição disponível) no array de listas
     for (int i = 0; i < numVertices; i++) {
         if (adjacencyList[i].isEmpty()) {
             adjacencyList[i].pushBack(source);
+            std::cout << "Vertice colocado no indice " << i << std::endl;
             return;
         }
     }
@@ -29,7 +33,7 @@ void Graph::addEdge(Depot* source, Depot* destination) {
 void Graph::addEdge(int index1, int index2) {
     if(this->adjacencyList[index1].front() != nullptr && this->adjacencyList[index2].front() != nullptr)
         this->adjacencyList[index1].pushBack(this->adjacencyList[index2].front());
-
+    else
     // Se não encontrou, joga exceção de erro lógico pois esse método não deveria ser chamado sem ter essa certeza de que funcionaria
     throw std::logic_error("addEdge indexado só deve ser chamado se houver certeza de que ambos vértices existem");
 

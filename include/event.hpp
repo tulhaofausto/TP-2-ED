@@ -4,6 +4,7 @@
 #include "depot.hpp"
 #include "package.hpp"
 #include "graph.hpp"
+#include "scheduler.hpp"
 #include <exception>
 
 class PackageDeliveredException : public std::exception {
@@ -79,17 +80,12 @@ public:
     int getSTime() const;
     int getType() const;
     Depot* getDepot() const;
+    Depot* getDestinationDepot() const;
+
     friend std::ostream& operator<<(std::ostream& os, const Event& e);
+    friend Scheduler;
 };
 
-std::ostream& operator<<(std::ostream& output, const Event& e) {
-    if(e.eventType == 1){
-        output << e.priorityKey << " pacote " << e.e_package->getId() << " ";
-    }else if(e.eventType == 2){
 
-    }
-    
-    return output;
-}
 
 #endif

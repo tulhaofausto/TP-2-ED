@@ -1,5 +1,6 @@
 #include "scheduler.hpp"
 #include "basicTADS.hpp"
+#include "event.hpp"
 #include "package.hpp"
 #include "depot.hpp"
 #include "graph.hpp"
@@ -39,20 +40,18 @@ int main(int argc, char* argv[]){
         DepotNet.addVertex(new Depot(i, transportTime));
     }
 
-    for (int i = 0; i < depotNum; i++){
-        std::string adjList;
-        if (std::getline(inputFile, adjList)) {
-            std::istringstream iss(adjList);
-            int value;
-            int j = 0;
-            while (iss >> value) {
-                if (value == 1){
-                    DepotNet.addEdge(i, j); // Utilizasse o addEdge indexado para menor complexidade.
-                }
-                j++;
+    int l = 0;
+    for (l = 0; l < depotNum; l++){
+        int value;
+        int j = 0;
+        for (j = 0; j < depotNum; j++) {
+            inputFile >> value;
+            if (value == 1){
+                std::cout << "adding Edge " << l << " " << j << std::endl;
+                DepotNet.addEdge(l, j); // Utilizasse o addEdge indexado para menor complexidade.
             }
-            DepotNet.setEdgeConnections(i);
         }
+        DepotNet.setEdgeConnections(l);
     }
 
     int packNum;
@@ -96,19 +95,26 @@ int main(int argc, char* argv[]){
     while(!is_finished && simulation_time < 100000){
         Event* currentEvent = mainScheduler.dequeueNextEvent();
         simulation_time += currentEvent->getSTime();
-        if (currentEvent->getType() == 1||currentEvent->getType() == 3){// evento é transporte 1 - primeira tentativa / 3 - segunda tentativa
+        if (currentEvent->getType() == 1){// evento é transporte 1 
             int k = 0;
+            List<Package*> transportTruck;
             try{
                 currentEvent->TransportOut();
             }catch (DepotNotPrepared &e){
+                e.what();
                 k = e.getNumUntillOk(); // Número de pacotes a serem retirados antes que o transporte possa acontecer;
             }
 
             if(k != 0){
                 Depot* currentDepot = currentEvent->getDepot();
-                for(int n = 0; n < k; n++){
-                    // Agendar o desinfileirar dos n primeiros pacotes
+                Depot* nextDepot = currentEvent->getDestinationDepot();
+                for(int n = 1; n <= k; n++){
+                    // Os eventos de tipo 0 servem para remover os pacotes da stack de saída e colocar
+                    // em uma auxiliar, para permitir a retirada dos últimos pacotes.
+                    mainScheduler.queueEvent(new Event(0, simulation_time + n, currentDepot, nextDepot));
+                    mainScheduler.queueEvent(new Event(3, simulation_time + k, currentDepot, nextDepot));
                 }
+
             }
 
         }else if(currentEvent->getType() == 2){// evento é pacote
@@ -116,7 +122,16 @@ int main(int argc, char* argv[]){
                 currentEvent->TransportIn(simulation_time);
             }catch(const PackageDeliveredException &e){
                 deliveredPackages.pushBack(currentEvent->DeliveredPackage());
-            }
+            }// Para quando o evento é de um armazem para um outro
+            
+
+
+        }else if(currentEvent->getType() == 0 || currentEvent->getType() == 3){// evento de pacote para rearmazenamento
+            try{
+                currentEvent->TransportOut();
+            }catch(const int &e){
+                mainScheduler.requeueEvent(currentEvent, e);
+            }// Para quando o evento é do reestoque para o próprio armazém
         }
     }
 

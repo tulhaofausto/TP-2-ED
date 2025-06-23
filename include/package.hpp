@@ -40,7 +40,10 @@ public:
     int getStoredTime() const;
     int getId() const;
     bool isPosted();
-    
+    bool operator==(const Package& other) const {
+        return this->packageId == other.packageId;
+    }
+
     ~Package();
 
 };
